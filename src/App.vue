@@ -1,32 +1,44 @@
 <template>
-  <div id="app">
-    <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
+  <div>
+    <Header @adds="add" />
+    <div v-for="(item, idx) in list" :key="idx" style="display: flex">
+      <div style="margin-right: 10px">{{ item }}</div>
+      <input v-model="list[idx]" type="text" style="margin-right: 10px" />
+      <div @click="deletes(idx)" class="delete" style="margin-right: 10px">-</div>
+      <div @click="edit(idx)">edit</div>
     </div>
-    <router-view/>
   </div>
 </template>
 
+<script>
+import Header from './views/components/Header'
+
+export default {
+  components: {
+    Header
+  },
+
+  data () {
+    return {
+      list: []
+    }
+  },
+
+  methods: {
+    add (val) {
+      this.list.push(val)
+    },
+    deletes (idx) {
+      this.list.splice(idx, 1)
+    },
+    edit (idx) {
+      this.$refs[`list${idx}`].nodeName = 'iput'
+      console.log(this.$refs[`list${idx}`])
+    }
+  }
+}
+</script>
+
 <style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-}
 
-#nav {
-  padding: 30px;
-}
-
-#nav a {
-  font-weight: bold;
-  color: #2c3e50;
-}
-
-#nav a.router-link-exact-active {
-  color: #42b983;
-}
 </style>
