@@ -7,11 +7,13 @@
       <div @click="deletes(idx)" class="delete" style="margin-right: 10px">-</div>
       <div @click="edit(idx)">edit</div>
     </div>
+    <div class="cc" @click="cc">cc</div>
   </div>
 </template>
 
 <script>
 import Header from './views/components/Header'
+import axios from 'axios'
 
 export default {
   components: {
@@ -24,9 +26,32 @@ export default {
     }
   },
 
+  created () {
+    axios.get('/asd', {
+      name: 1
+    })
+      .then(res => {
+        this.list.push(res)
+      })
+      .catch(err => {
+        console.log(err, 222)
+      })
+  },
+
   methods: {
     add (val) {
       this.list.push(val)
+    },
+    cc () {
+      axios.get('/asd', {
+        name: 1
+      })
+        .then(res => {
+          this.list.push(res)
+        })
+        .catch(err => {
+          console.log(err, 222)
+        })
     },
     deletes (idx) {
       this.list.splice(idx, 1)
